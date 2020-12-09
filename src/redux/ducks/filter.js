@@ -1,12 +1,12 @@
 /** Types **/
-const CATEGORIES_LOAD_STARTED = "categories/load/started";
-const CATEGORIES_LOAD_SUCCEED = "categories/load/succeed";
-const FILTERED_BY_ALPHABET = "users/filtered/byAlphabet";
-const FILTERED_BY_ALPHABET_REVERSE = "users/filtered/byAlphabetReverse";
-const FILTERED_BY_CATEGORIES = "users/filtered/byCategories";
+export const CATEGORIES_LOAD_STARTED = "categories/load/started";
+export const CATEGORIES_LOAD_SUCCEED = "categories/load/succeed";
+export const FILTERED_BY_ALPHABET = "users/filtered/byAlphabet";
+export const FILTERED_BY_ALPHABET_REVERSE = "users/filtered/byAlphabetReverse";
+export const FILTERED_BY_CATEGORIES = "users/filtered/byCategories";
 
 /** State **/
-const initialState = {
+export const initialState = {
   categories: [],
   categoriesLoading: false,
   selectedCategoriesId: "",
