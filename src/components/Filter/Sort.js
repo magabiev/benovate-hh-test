@@ -7,7 +7,10 @@ import {
   Select,
 } from "@material-ui/core";
 import { useDispatch } from "react-redux";
-import { usersByAlphabet, usersByAlphabetReverse } from "../redux/application";
+import {
+  usersByAlphabet,
+  usersByAlphabetReverse,
+} from "../../redux/ducks/filter";
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -23,9 +26,11 @@ function Sort() {
   const handleClickSortByAlphabet = (e) => {
     setSortByAlphabet(e.target.value);
   };
+
   const filteredByAlphabet = () => {
     dispatch(usersByAlphabet());
   };
+
   const filteredByAlphabetReverse = () => {
     dispatch(usersByAlphabetReverse());
   };

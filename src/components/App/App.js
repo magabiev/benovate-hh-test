@@ -1,11 +1,11 @@
-import Header from "./Header";
-import Users from "./Users";
-import UserAdd from "./UserAdd";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { loadApplication } from "../redux/application";
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
-import Main from "./Main";
+import Main from "../Main/Main";
+import { loadApplication } from "../../redux/ducks/users";
+import UserAdd from "../UserAdd/UserAdd";
+import Users from "../Users/Users";
+import Header from "../Header/Header";
 
 function App() {
   const dispatch = useDispatch();

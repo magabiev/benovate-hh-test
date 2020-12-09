@@ -3,11 +3,11 @@ import { Container, Grid, LinearProgress, makeStyles } from "@material-ui/core";
 import { useSelector } from "react-redux";
 import User from "./User";
 import LoadMore from "./LoadMore";
-import Filters from "./Filters";
+import Filters from "../Filter/Filters";
 
 const useStyles = makeStyles({
   containerMargin: {
-    marginTop: "50px",
+    marginTop: 50,
   },
   progressBar: {
     width: "100%",
@@ -16,26 +16,30 @@ const useStyles = makeStyles({
 
 function Users() {
   const classes = useStyles();
-  const users = useSelector((state) => state.users);
-  const filterCategoriesId = useSelector((state) => state.filterCategoriesId);
+  const users = useSelector((state) => state.users.items);
+  const selectedCategoriesId = useSelector(
+    (state) => state.filter.selectedCategoriesId
+  );
   const isFilteredByAlphabet = useSelector(
-    (state) => state.isFilteredByAlphabet
+    (state) => state.filter.isFilteredByAlphabet
   );
   const isFilteredByAlphabetReverse = useSelector(
-    (state) => state.isFilteredByAlphabetReverse
+    (state) => state.filter.isFilteredByAlphabetReverse
   );
-  const usersLoading = useSelector((state) => state.usersLoading);
+  const usersLoading = useSelector((state) => state.users.usersLoading);
+
   const filteredByCategories = useMemo(() => {
-    return filterCategoriesId
-      ? users.filter((item) => item.groupId === filterCategoriesId)
+    return selectedCategoriesId
+      ? users.filter((item) => item.groupId === selectedCategoriesId)
       : users;
-  }, [filterCategoriesId, users]);
+  }, [selectedCategoriesId, users]);
 
   const filterByAlphaBet = useMemo(() => {
     return [...filteredByCategories].sort((a, b) =>
       a.name.localeCompare(b.name)
     );
   }, [filteredByCategories]);
+
   const filterByAlphaBetReverse = useMemo(() => {
     return [...filterByAlphaBet].reverse();
   }, [filterByAlphaBet]);

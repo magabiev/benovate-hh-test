@@ -7,15 +7,15 @@ import {
   DialogTitle,
 } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
-import { popUpShowToggled, userAdded } from "../redux/application";
 import UserAddName from "./UserAddName";
 import UserAddLastName from "./UserAddLastName";
 import UserAddGroup from "./UserAddGroup";
+import { popUpShowToggled, userAdded } from "../../redux/ducks/users";
 
 function UserAdd() {
   const dispatch = useDispatch();
-  const adding = useSelector((state) => state.adding);
-  const popUpIsShow = useSelector((state) => state.popUpIsShow);
+  const adding = useSelector((state) => state.users.adding);
+  const popUpIsShow = useSelector((state) => state.users.popUpIsShow);
   const [category, setCategory] = useState("");
   const [categoryId, setCategoryId] = useState("");
   const [name, setName] = useState("");

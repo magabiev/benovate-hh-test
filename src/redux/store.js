@@ -1,5 +1,8 @@
-import { applyMiddleware, createStore } from "redux";
+import { applyMiddleware, combineReducers, createStore } from "redux";
 import thunk from "redux-thunk";
-import application from "./application";
+import users from "./ducks/users";
+import filter from "./ducks/filter";
 
-export const store = createStore(application, applyMiddleware(thunk));
+const reducers = combineReducers({ users, filter });
+
+export const store = createStore(reducers, applyMiddleware(thunk));

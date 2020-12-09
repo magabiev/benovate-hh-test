@@ -3,11 +3,11 @@ import { Button, Container, Grid, makeStyles } from "@material-ui/core";
 import Categories from "./Categories";
 import Sort from "./Sort";
 import { useDispatch } from "react-redux";
-import { popUpShowToggled } from "../redux/application";
+import { popUpShowToggled } from "../../redux/ducks/users";
 
 const useStyles = makeStyles({
   containerMargin: {
-    marginTop: "100px",
+    marginTop: 100,
   },
 });
 

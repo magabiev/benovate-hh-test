@@ -3,7 +3,7 @@ import { Container, makeStyles, Typography } from "@material-ui/core";
 
 const useStyles = makeStyles({
   containerMargin: {
-    marginTop: "100px",
+    marginTop: 100,
   },
 });
 

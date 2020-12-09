@@ -19,9 +19,11 @@ const useStyles = makeStyles({
 function User({ name, lastName, groupId }) {
   const classes = useStyles();
   const categories = useSelector((state) =>
-    state.categories.find((item) => item.id === groupId)
+    state.filter.categories.find((item) => item.id === groupId)
   );
-  const categoriesLoading = useSelector((state) => state.categoriesLoading);
+  const categoriesLoading = useSelector(
+    (state) => state.filter.categoriesLoading
+  );
 
   return (
     <Grid item xs={12} sm={6} md={4}>

@@ -7,7 +7,7 @@ import {
   Select,
 } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
-import { usersByCategories } from "../redux/application";
+import { usersByCategories } from "../../redux/ducks/filter";
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -19,8 +19,10 @@ const useStyles = makeStyles((theme) => ({
 function Categories() {
   const dispatch = useDispatch();
   const classes = useStyles();
-  const categories = useSelector((state) => state.categories);
-  const categoriesLoading = useSelector((state) => state.categoriesLoading);
+  const categories = useSelector((state) => state.filter.categories);
+  const categoriesLoading = useSelector(
+    (state) => state.filter.categoriesLoading
+  );
   const [category, setCategory] = useState("");
   const handleChange = (e) => {
     setCategory(e.target.value);
