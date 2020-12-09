@@ -12,7 +12,7 @@ import UserAddLastName from "./UserAddLastName";
 import UserAddGroup from "./UserAddGroup";
 import { popUpShowToggled, userAdded } from "../../redux/ducks/users";
 
-function UserAdd() {
+function UserAddDialog() {
   const dispatch = useDispatch();
   const adding = useSelector((state) => state.users.adding);
   const popUpIsShow = useSelector((state) => state.users.popUpIsShow);
@@ -59,4 +59,4 @@ function UserAdd() {
   );
 }
 
-export default UserAdd;
+export default UserAddDialog;

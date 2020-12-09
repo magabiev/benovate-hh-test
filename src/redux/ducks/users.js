@@ -1,15 +1,15 @@
 import { loadCategories } from "./filter";
 /** Types **/
-const USERS_LOAD_STARTED = "users/load/started";
-const USERS_LOAD_SUCCEED = "users/load/succeed";
-const MORE_LOAD_STARTED = "users/loadMore/started";
-const MORE_LOAD_SUCCEED = "users/loadMore/succeed";
-const POPUP_SHOW_TOGGLE = "popUp/show/toggled";
-const USER_ADD_STARTED = "user/add/started";
-const USER_ADD_SUCCEED = "user/add/succeed";
+export const USERS_LOAD_STARTED = "users/load/started";
+export const USERS_LOAD_SUCCEED = "users/load/succeed";
+export const MORE_LOAD_STARTED = "users/loadMore/started";
+export const MORE_LOAD_SUCCEED = "users/loadMore/succeed";
+export const POPUP_SHOW_TOGGLE = "popUp/show/toggled";
+export const USER_ADD_STARTED = "user/add/started";
+export const USER_ADD_SUCCEED = "user/add/succeed";
 
 /** State **/
-const initialState = {
+export const usersInitialState = {
   items: [],
   usersLoading: false,
   usersMoreLoading: false,
@@ -18,7 +18,7 @@ const initialState = {
 };
 
 /** Reducer **/
-export default function users(state = initialState, action) {
+export default function users(state = usersInitialState, action) {
   switch (action.type) {
     case USERS_LOAD_STARTED:
       return {

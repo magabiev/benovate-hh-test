@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import Main from "../Main/Main";
 import { loadApplication } from "../../redux/ducks/users";
-import UserAdd from "../UserAdd/UserAdd";
+import UserAddDialog from "../UserAddDialog/UserAddDialog";
 import Users from "../Users/Users";
 import Header from "../Header/Header";
 
@@ -17,7 +17,7 @@ function App() {
   return (
     <BrowserRouter>
       <Header />
-      <UserAdd />
+      <UserAddDialog />
       <Switch>
         <Route path="/main" component={Main} />
         <Route path="/users" component={Users} />

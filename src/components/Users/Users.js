@@ -17,13 +17,14 @@ const useStyles = makeStyles({
 function Users() {
   const classes = useStyles();
   const users = useSelector((state) => state.users.items);
+
   const selectedCategoriesId = useSelector(
     (state) => state.filter.selectedCategoriesId
   );
-  const isFilteredByAlphabet = useSelector(
+  const isSortedByAlphabet = useSelector(
     (state) => state.filter.isFilteredByAlphabet
   );
-  const isFilteredByAlphabetReverse = useSelector(
+  const isSortedByAlphabetReverse = useSelector(
     (state) => state.filter.isFilteredByAlphabetReverse
   );
   const usersLoading = useSelector((state) => state.users.usersLoading);
@@ -34,24 +35,18 @@ function Users() {
       : users;
   }, [selectedCategoriesId, users]);
 
-  const filterByAlphaBet = useMemo(() => {
-    return [...filteredByCategories].sort((a, b) =>
-      a.name.localeCompare(b.name)
-    );
-  }, [filteredByCategories]);
-
-  const filterByAlphaBetReverse = useMemo(() => {
-    return [...filterByAlphaBet].reverse();
-  }, [filterByAlphaBet]);
-
-  const sortedUsers = isFilteredByAlphabet
-    ? filterByAlphaBet
-    : filterByAlphaBetReverse;
-
-  const isSortedUsers =
-    isFilteredByAlphabet || isFilteredByAlphabetReverse
-      ? sortedUsers
-      : filteredByCategories;
+  const sortedByAlphabet = useMemo(() => {
+    if (isSortedByAlphabet) {
+      return [...filteredByCategories].sort((a, b) =>
+        a.name.localeCompare(b.name)
+      );
+    } else if (isSortedByAlphabetReverse) {
+      return [...filteredByCategories]
+        .sort((a, b) => a.name.localeCompare(b.name))
+        .reverse();
+    }
+    return filteredByCategories;
+  }, [filteredByCategories, isSortedByAlphabet, isSortedByAlphabetReverse]);
 
   return (
     <>
@@ -63,7 +58,7 @@ function Users() {
               <LinearProgress />
             </div>
           ) : (
-            isSortedUsers.map((item) => {
+            sortedByAlphabet.map((item) => {
               return (
                 <User
                   key={item.id}

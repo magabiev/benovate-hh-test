@@ -6,7 +6,7 @@ export const FILTERED_BY_ALPHABET_REVERSE = "users/filtered/byAlphabetReverse";
 export const FILTERED_BY_CATEGORIES = "users/filtered/byCategories";
 
 /** State **/
-export const initialState = {
+export const filterInitialState = {
   categories: [],
   categoriesLoading: false,
   selectedCategoriesId: "",
@@ -15,7 +15,7 @@ export const initialState = {
 };
 
 /** Reducer **/
-export default function filter(state = initialState, action) {
+export default function filter(state = filterInitialState, action) {
   switch (action.type) {
     case CATEGORIES_LOAD_STARTED:
       return {
