@@ -1,4 +1,5 @@
 import { loadCategories } from "./filter";
+import { createSelector } from "reselect";
 /** Types **/
 export const USERS_LOAD_STARTED = "users/load/started";
 export const USERS_LOAD_SUCCEED = "users/load/succeed";
@@ -7,6 +8,7 @@ export const MORE_LOAD_SUCCEED = "users/loadMore/succeed";
 export const POPUP_SHOW_TOGGLE = "popUp/show/toggled";
 export const USER_ADD_STARTED = "user/add/started";
 export const USER_ADD_SUCCEED = "user/add/succeed";
+export const GET_TOTAL_COUNT = "usersTotalCount/get/succeed";
 
 /** State **/
 export const usersInitialState = {
@@ -15,6 +17,7 @@ export const usersInitialState = {
   usersMoreLoading: false,
   popUpIsShow: false,
   adding: false,
+  usersTotalCount: "",
 };
 
 /** Reducer **/
@@ -30,6 +33,11 @@ export default function users(state = usersInitialState, action) {
         ...state,
         items: action.payload,
         usersLoading: false,
+      };
+    case GET_TOTAL_COUNT:
+      return {
+        ...state,
+        usersTotalCount: Number(action.payload),
       };
     case MORE_LOAD_STARTED:
       return {
@@ -70,8 +78,14 @@ export default function users(state = usersInitialState, action) {
 export function loadUsers() {
   return (dispatch) => {
     dispatch({ type: USERS_LOAD_STARTED });
-    fetch("http://localhost:3005/users?_limit=50")
-      .then((response) => response.json())
+    fetch("/users?_limit=50")
+      .then((response) => {
+        dispatch({
+          type: GET_TOTAL_COUNT,
+          payload: response.headers.get("X-total-count"),
+        });
+        return response.json();
+      })
       .then((json) =>
         dispatch({
           type: USERS_LOAD_SUCCEED,
@@ -84,7 +98,7 @@ export function loadUsers() {
 export function loadUsersMore(limit) {
   return (dispatch) => {
     dispatch({ type: MORE_LOAD_STARTED });
-    fetch(`http://localhost:3005/users?_limit=${limit}`)
+    fetch(`/users?_limit=${limit}`)
       .then((response) => {
         console.log(response.headers);
         return response.json();
@@ -112,7 +126,7 @@ export function popUpShowToggled() {
 export function userAdded(name, lastName, groupId) {
   return (dispatch) => {
     dispatch({ type: USER_ADD_STARTED });
-    fetch("http://localhost:3005/users", {
+    fetch("/users", {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -133,3 +147,31 @@ export function userAdded(name, lastName, groupId) {
       );
   };
 }
+
+/** Selectors **/
+export const getUsersSelector = createSelector(
+  (state) => state.filter,
+  (state) => state.users.items,
+
+  (filter, users) => {
+    const {
+      isFilteredByAlphabetReverse,
+      isSortedByAlphabet,
+      selectedCategoriesId,
+    } = filter;
+
+    const filteredUsers = selectedCategoriesId
+      ? [...users].filter((item) => item.groupId === selectedCategoriesId)
+      : [...users];
+
+    if (isSortedByAlphabet) {
+      filteredUsers.sort((a, b) => a.name.localeCompare(b.name));
+    }
+
+    if (isFilteredByAlphabetReverse) {
+      filteredUsers.sort((a, b) => a.name.localeCompare(b.name)).reverse();
+    }
+
+    return filteredUsers;
+  }
+);

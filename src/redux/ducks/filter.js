@@ -56,7 +56,7 @@ export default function filter(state = filterInitialState, action) {
 export function loadCategories() {
   return (dispatch) => {
     dispatch({ type: CATEGORIES_LOAD_STARTED });
-    fetch("http://localhost:3005/categories")
+    fetch("/categories")
       .then((response) => response.json())
       .then((json) =>
         dispatch({

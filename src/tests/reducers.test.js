@@ -15,6 +15,7 @@ import users, {
   USER_ADD_STARTED,
   USER_ADD_SUCCEED,
   usersInitialState,
+  GET_TOTAL_COUNT,
 } from "../redux/ducks/users";
 
 describe("testing filter reducer", () => {
@@ -92,6 +93,17 @@ describe("testing users reducer", () => {
       ...usersInitialState,
       items: action.payload,
       usersLoading: false,
+    });
+  });
+
+  it("GET_TOTAL_COUNT", () => {
+    const action = {
+      type: GET_TOTAL_COUNT,
+      payload: "100",
+    };
+    expect(users(usersInitialState, action)).toEqual({
+      ...usersInitialState,
+      usersTotalCount: Number(action.payload),
     });
   });
 
